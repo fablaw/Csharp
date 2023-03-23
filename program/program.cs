@@ -7,7 +7,7 @@ namespace ConsoleApplication
   {
     static void Main(string[] args)
     {
-      string topPath=@"/Users/fabianlaw/code/C#/Csharp";
+      string topPath=@"/Users/fabianlaw/code/C#/Csharp/program";
       Directory.CreateDirectory(topPath+@"/testEduGroupe");
 
       bool directoryExists=Directory.Exists(topPath+@"/testEduGroupe");
