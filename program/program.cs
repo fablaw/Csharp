@@ -11,7 +11,7 @@ namespace ConsoleApplication
       Directory.CreateDirectory(topPath+"/testEduGroupe");
 
       bool directoryExists=Directory.Exists(topPath+"/testEduGroupe");
-
+      /*
       if (directoryExists)
       {
         Console.WriteLine("The directory exists already");
@@ -27,7 +27,7 @@ namespace ConsoleApplication
       {
         File.Create(topPath+$"/testEduGroupe/{names[j]}.txt");
       }
-      /*
+
       string[] arrFiles=Directory.GetFiles(topPath);
       string[] arrDirectory=Directory.GetDirectories(topPath);
       foreach (string file in arrFiles)
