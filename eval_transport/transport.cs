@@ -100,44 +100,60 @@ namespace ConsoleApplication
         }
         else
         {
-          foreach (var pers in ListeAttente)
+          foreach (var per in perAinstaller)
           {
-            if (perAinstaller.Contains(pers))
+            if (!ListeAttente.Contains(per))
             {
-              if (PersonnesInstallées.Count<NbPlaces)
-              {
-                PersonnesInstallées.Add(pers);
-                ListeAttente.Remove(pers);
-                perAinstaller.Remove(pers);
-              }
+              ListeAttente.Add(per);
             }
             else
             {
-              if (PersonnesInstallées.Count<NbPlaces)
-              {
-                PersonnesInstallées.Add(pers);
-                ListeAttente.Remove(pers);
-              }
+              Console.WriteLine($"{per.Prénom} {per.Nom} est déjà sur la liste d'attente");
             }
           }
-          foreach (var exPer in perAinstaller.Except(ListeAttente))
-          {
-            ListeAttente.Add(exPer);
-          }
-          Console.WriteLine($"Il reste {ListeAttente.Count} de personnes dans la liste d'attente.");
         }
+        Console.WriteLine($"Il reste {ListeAttente.Count} de personnes dans la liste d'attente.");
       }
       public void SortirIndividu(List<Usager> perAsortir)
       {
-        foreach (var person in perAsortir)
+        if (ListeAttente.Count==0)
         {
-          if (PersonnesInstallées.Contains(person))
+          foreach (var person in perAsortir)
           {
-            PersonnesInstallées.Remove(person);
+            if (PersonnesInstallées.Contains(person))
+            {
+              PersonnesInstallées.Remove(person);
+            }
+            else
+            {
+              Console.WriteLine($"{person.Prénom} {person.Nom} n'est pas installé dans cette voiture.");
+            }
           }
-          else
+        }
+        else
+        {
+          foreach (var person in perAsortir)
           {
-            Console.WriteLine($"{person.Prénom} {person.Nom} n'est pas installé dans cette voiture.");
+            if (PersonnesInstallées.Contains(person))
+            {
+              PersonnesInstallées.Remove(person);
+            }
+            else if (ListeAttente.Contains(person))
+            {
+              ListeAttente.Remove(person);
+            }
+            else
+            {
+              Console.WriteLine($"{person.Prénom} {person.Nom} n'est pas installé dans cette voiture, ni dans la liste d'attente");
+            }
+          }
+          foreach (var pers in ListeAttente)
+          {
+            while ((PersonnesInstallées.Count<NbPlaces) && (ListeAttente.Count>0))
+            {
+              PersonnesInstallées.Add(pers);
+              ListeAttente.Remove(pers);
+            }
           }
         }
       }
