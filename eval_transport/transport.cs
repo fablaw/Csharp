@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace ConsoleApplication
 {
@@ -61,6 +62,7 @@ namespace ConsoleApplication
       public string Modèle{get;set;}
       public int NbPlaces{get;set;}
       public List<Usager> PersonnesInstallées{get;set;}
+      public List<Usager> ListeAttente{get;set;}
 
       public Voiture(string id, string marque, string modèle, int nbPlaces, List<Usager> personnesInstallées) : base(id)
       {
@@ -71,23 +73,58 @@ namespace ConsoleApplication
       }
       public void InstallerIndividu(List<Usager> perAinstaller)
       {
-        foreach (var per in perAinstaller)
+        if (ListeAttente.Count==0)
         {
-          if (!PersonnesInstallées.Contains(per))
+          foreach (var per in perAinstaller)
           {
-            if (PersonnesInstallées.Count<NbPlaces)
+            int counterAdd=0;
+            if (!PersonnesInstallées.Contains(per))
             {
-              PersonnesInstallées.Add(per);
+              if (PersonnesInstallées.Count<NbPlaces)
+              {
+                PersonnesInstallées.Add(per);
+                counterAdd=counterAdd+1;
+              }
+              else
+              {
+                ListeAttente.Add(per);
+                Console.WriteLine($"Il n'y a pas assez de place. {per.Prénom} {per.Nom} sera dans la liste d'attente.");
+              }
             }
             else
             {
-              Console.WriteLine($"Il n'y a pas assez de place pour {per.Prénom} {per.Nom}.");
+              Console.WriteLine($"{per.Prénom} {per.Nom} est déjà installé dans cette voiture.");
+            }
+            Console.WriteLine($"{counterAdd} sur {perAinstaller.Count} a(sont) été installée(s).");
+          }
+        }
+        else
+        {
+          foreach (var pers in ListeAttente)
+          {
+            if (perAinstaller.Contains(pers))
+            {
+              if (PersonnesInstallées.Count<NbPlaces)
+              {
+                PersonnesInstallées.Add(pers);
+                ListeAttente.Remove(pers);
+                perAinstaller.Remove(pers);
+              }
+            }
+            else
+            {
+              if (PersonnesInstallées.Count<NbPlaces)
+              {
+                PersonnesInstallées.Add(pers);
+                ListeAttente.Remove(pers);
+              }
             }
           }
-          else
+          foreach (var exPer in perAinstaller.Except(ListeAttente))
           {
-            Console.WriteLine($"{per.Prénom} {per.Nom} est déjà installé dans cette voiture.");
+            ListeAttente.Add(exPer);
           }
+          Console.WriteLine($"Il reste {ListeAttente.Count} de personnes dans la liste d'attente.");
         }
       }
       public void SortirIndividu(List<Usager> perAsortir)
