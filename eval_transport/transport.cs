@@ -73,11 +73,11 @@ namespace ConsoleApplication
       }
       public void InstallerIndividu(List<Usager> perAinstaller)
       {
-        if (ListeAttente.Count==0)
+        if (ListeAttente==null)
         {
+          int counterAdd=0;
           foreach (var per in perAinstaller)
           {
-            int counterAdd=0;
             if (!PersonnesInstallées.Contains(per))
             {
               if (PersonnesInstallées.Count<NbPlaces)
@@ -95,8 +95,8 @@ namespace ConsoleApplication
             {
               Console.WriteLine($"{per.Prénom} {per.Nom} est déjà installé dans cette voiture.");
             }
-            Console.WriteLine($"{counterAdd} sur {perAinstaller.Count} a(sont) été installée(s).");
           }
+          Console.WriteLine($"{counterAdd} sur {perAinstaller.Count} a(sont) été installée(s).");
         }
         else
         {
@@ -116,7 +116,7 @@ namespace ConsoleApplication
       }
       public void SortirIndividu(List<Usager> perAsortir)
       {
-        if (ListeAttente.Count==0)
+        if (ListeAttente==null)
         {
           foreach (var person in perAsortir)
           {
