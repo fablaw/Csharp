@@ -62,7 +62,7 @@ namespace ConsoleApplication
       public string Modèle{get;set;}
       public int NbPlaces{get;set;}
       public List<Usager> PersonnesInstallées{get;set;}
-      public List<Usager> ListeAttente=new List<Usager>{};
+      public List<Usager> ListeAttente{get;set;}
 
       public Voiture(string id, string marque, string modèle, int nbPlaces, List<Usager> personnesInstallées) : base(id)
       {
@@ -70,6 +70,7 @@ namespace ConsoleApplication
         Modèle=modèle;
         NbPlaces=nbPlaces;
         PersonnesInstallées=personnesInstallées;
+        List<Usager> ListeAttente=null;
       }
       public void InstallerIndividu(List<Usager> perAinstaller)
       {
@@ -234,7 +235,7 @@ namespace ConsoleApplication
       string racine="/Users/fabianlaw/code/C#/Csharp/eval_transport";
       string racineAvion=racine+"/Avion";
       string racineVoiture=racine+"/Voiture";
-
+      /*
       foreach (var item in listVoiture)
       {
         if (!Directory.Exists(racineVoiture+$"/{item.NbPlaces}"))
@@ -273,7 +274,7 @@ namespace ConsoleApplication
         string finalDir=racineAvion+$"/{obj.NbRéacteurs}/{obj.Modèle}";
         File.Create(finalDir+$"/{obj.Pilote.Nom}_{obj.Pilote.Prénom}_{obj.Pilote.Id}.txt");
 
-      }
+      }*/
     }
   }
 }
