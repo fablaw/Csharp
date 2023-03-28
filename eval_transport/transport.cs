@@ -62,7 +62,7 @@ namespace ConsoleApplication
       public string Modèle{get;set;}
       public int NbPlaces{get;set;}
       public List<Usager> PersonnesInstallées{get;set;}
-      public List<Usager> ListeAttente{get;set;}
+      public List<Usager> ListeAttente=new List<Usager>{};
 
       public Voiture(string id, string marque, string modèle, int nbPlaces, List<Usager> personnesInstallées) : base(id)
       {
